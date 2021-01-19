@@ -18,13 +18,13 @@
         <h1>План по изучению Vue.js</h1>
         <div class="steps">
             <div class="steps-content">
-                {{ this.currentStep.text }}
+                {{ currentStep.text }}
             </div>
             <ul class="steps-list">
                 <li
-                        :class="['steps-item', this.activeIndex === idx ? 'active' : this.activeIndex > idx ? 'done' : '']"
-                        v-for="(step, idx) in this.steps"
-                        @click="this.setActive(idx)"
+                        :class="['steps-item', activeIndex === idx ? 'active' : activeIndex > idx ? 'done' : '']"
+                        v-for="(step, idx) in steps"
+                        @click="setActive(idx)"
                 >
                     <span>{{ idx + 1 }}</span>&nbsp;
                     {{ step.title }}
@@ -32,20 +32,20 @@
             </ul>
             <div>
                 <button
-                        :class="['btn', this.backButtonIsDisabled ? 'disabled' : '']"
-                        v-show="this.stepToFinish <= 1"
-                        @click="this.prev"
+                        :class="['btn', backButtonIsDisabled ? 'disabled' : '']"
+                        v-show="stepToFinish <= 1"
+                        @click="prev"
                 >Назад</button>
                 <button
                         class="btn primary"
-                        v-text="this.lastStep ? 'Закончить' : 'Вперед'"
-                        v-show="this.stepToFinish <= 1"
-                        @click="this.nextOfFinish"
+                        v-text="lastStep ? 'Закончить' : 'Вперед'"
+                        v-show="stepToFinish <= 1"
+                        @click="nextOfFinish"
                 ></button>
                 <button
                         class="btn"
-                        v-show="this.stepToFinish > 1"
-                        @click="this.reset"
+                        v-show="stepToFinish > 1"
+                        @click="reset"
                 >Начать заново</button>
             </div>
         </div>
