@@ -5,7 +5,7 @@ const App = {
     data() {
         return {
             activeIndex: 0, // то, что позволяет определить текущий активный шаг
-            stepToFinish: 0,
+            isDone: 0,
             steps: [
                 {
                     title: 'Основы',
@@ -34,27 +34,22 @@ const App = {
         prev() {
             // когда нажимаем кнопку назад
             this.activeIndex > 0 && this.activeIndex--
-            this.stepToFinish = 0
+            this.isDone = 0
         },
         reset() {
             // начать заново
             this.activeIndex = 0
-            this.stepToFinish = 0
+            this.isDone = 0
         },
         nextOfFinish() {
             // кнопка вперед или закончить
+            this.isDone = this.lastStep && !this.isDone
             !this.lastStep && this.activeIndex++
-            this.lastStep && this.stepToFinish++
-
         },
         setActive(idx) {
             // когда нажимаем на определенный шаг
-            if (this.stepToFinish <= 1 && this.activeIndex !== idx) {
+            if (!this.isDone && this.activeIndex !== idx) {
                 this.activeIndex = idx
-                this.lastStep ? this.stepToFinish++ : 0
-            }
-            else {
-                alert('Закончите курс и начните заново! Спасибо за внимание.')
             }
         }
     },
@@ -70,7 +65,6 @@ const App = {
         },
         // 3. находимся ли мы на последнем шаге
         lastStep() {
-            this.stepToFinish = 0
             return this.activeIndex === this.steps.length - 1
         }
     }

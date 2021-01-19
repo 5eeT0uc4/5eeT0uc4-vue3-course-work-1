@@ -31,20 +31,21 @@
                 </li>
             </ul>
             <div>
+                <template v-if="!isDone">
+                    <button
+                            :disabled="backButtonIsDisabled"
+                            class="btn"
+                            @click="prev"
+                    >Назад</button>
+                    <button
+                            class="btn primary"
+                            v-text="lastStep ? 'Закончить' : 'Вперед'"
+                            @click="nextOfFinish"
+                    ></button>
+                </template>
                 <button
-                        :class="['btn', backButtonIsDisabled ? 'disabled' : '']"
-                        v-show="stepToFinish <= 1"
-                        @click="prev"
-                >Назад</button>
-                <button
-                        class="btn primary"
-                        v-text="lastStep ? 'Закончить' : 'Вперед'"
-                        v-show="stepToFinish <= 1"
-                        @click="nextOfFinish"
-                ></button>
-                <button
+                        v-else
                         class="btn"
-                        v-show="stepToFinish > 1"
                         @click="reset"
                 >Начать заново</button>
             </div>
